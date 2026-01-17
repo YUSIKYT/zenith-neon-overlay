@@ -13,6 +13,11 @@
             --bg: #0a0514;
         }
 
+        /* Плавная прокрутка всей страницы */
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -28,11 +33,39 @@
             padding: 40px 20px;
         }
 
-        /* --- СТИЛИ СЛАЙДЕРА --- */
+        /* Анимация появления блоков при скролле */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header { 
+            text-align: center; 
+            padding: 60px 0; 
+        }
+
+        h1 { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 3.5rem; 
+            text-transform: uppercase; 
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin: 0;
+            text-shadow: 0 0 20px rgba(169, 112, 255, 0.3);
+        }
+
+        /* --- СЛАЙДЕР --- */
         .slider-container {
             position: relative;
             width: 100%;
-            height: 500px; /* Высота слайдера */
+            height: 500px;
             margin: 40px 0;
             border-radius: 20px;
             overflow: hidden;
@@ -45,8 +78,8 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transform: scale(1.05);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: scale(1.1);
+            transition: opacity 1s ease, transform 1s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -62,10 +95,9 @@
         .slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Фото заполнит область */
+            object-fit: cover;
         }
 
-        /* Кнопки навигации */
         .slider-btn {
             position: absolute;
             top: 50%;
@@ -103,23 +135,80 @@
             z-index: 5;
         }
 
-        /* Остальные стили из предыдущего шага */
-        header { text-align: center; padding: 40px 0; }
-        h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; text-transform: uppercase; background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .download-section { text-align: center; background: rgba(255, 255, 255, 0.05); padding: 50px; border-radius: 20px; border: 1px solid rgba(169, 112, 255, 0.3); margin: 40px 0; }
-        .btn-download { display: inline-block; padding: 20px 50px; background: var(--primary); color: white; text-decoration: none; font-family: 'Orbitron', sans-serif; border-radius: 50px; box-shadow: 0 0 25px var(--primary); transition: 0.3s; }
-        .btn-download:hover { transform: scale(1.05); background: var(--secondary); box-shadow: 0 0 45px var(--secondary); }
+        /* --- ТУТОР --- */
+        .tutorial-section {
+            margin: 60px 0;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(169, 112, 255, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #d1d1d1;
+            overflow-x: auto;
+            border-left: 4px solid var(--secondary);
+            margin: 15px 0;
+        }
+
+        .highlight { color: var(--secondary); font-weight: bold; }
+
+        /* --- ЗАГРУЗКА --- */
+        .download-section {
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(169, 112, 255, 0.05) 100%);
+            padding: 60px;
+            border-radius: 30px;
+            border: 1px solid rgba(169, 112, 255, 0.3);
+            margin: 40px 0;
+        }
+
+        .btn-download {
+            display: inline-block;
+            padding: 22px 60px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            box-shadow: 0 0 30px var(--primary);
+            transition: 0.4s;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            background: var(--secondary);
+            box-shadow: 0 0 50px var(--secondary);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
+    <header class="reveal">
         <h1>Zenith Neon UI</h1>
         <p>Анимированные оверлеи с эффектом погружения</p>
     </header>
 
-    <div class="slider-container">
+    <div class="slider-container reveal">
         <button class="slider-btn btn-prev" onclick="changeSlide(-1)">❮</button>
         <button class="slider-btn btn-next" onclick="changeSlide(1)">❯</button>
 
@@ -139,36 +228,71 @@
         </div>
     </div>
 
-    <div class="download-section">
-        <h2>Скачать весь набор</h2>
-        <p>Архив включает HTML, CSS файлы и инструкции</p>
-        <a href="Zenith Neon UI.zip" class="btn-download" download>СКАЧАТЬ ZIP [1.2 MB]</a>
+    <div class="download-section reveal">
+        <h2>Готов к стриму?</h2>
+        <a href="Zenith Neon UI.zip" class="btn-download" download>СКАЧАТЬ ZIP ПАКЕТ</a>
+    </div>
+
+    <div class="tutorial-section">
+        <h2 class="reveal">Как поменять ники?</h2>
+        
+        <div class="step-card reveal">
+            <h3>1. Оверлей ника 1</h3>
+            <p>Откройте HTML файл оверлея и найдите блок <span class="highlight">overlay-container</span>. Измените текст в этих строчках:</p>
+            <div class="code-block">
+&lt;div class="overlay-container"&gt;<br>
+&nbsp;&nbsp;&lt;div class="name-bar"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="anime-accent"&gt;<span class="highlight">ВашТекст</span>&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="channel-name"&gt;<span class="highlight">ВашНик</span>&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&lt;/div&gt;
+            </div>
+        </div>
+
+        <div class="step-card reveal">
+            <h3>2. Оверлей ника 2</h3>
+            <p>Найдите метку <span class="highlight">&lt;!-- Текст --&gt;</span>. Замените ник в основном блоке и в блоке тени:</p>
+            <div class="code-block">
+&lt;div class="text-container"&gt;<br>
+&nbsp;&nbsp;&lt;div class="channel-name"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">ВашНик</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="name-shadow"&gt;<span class="highlight">ВашНик</span>&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;div class="sub-text"&gt;Live Streamer&lt;/div&gt;<br>
+&lt;/div&gt;
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
+    // --- Логика слайдера ---
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
 
     function changeSlide(direction) {
-        // Убираем активный класс у текущего слайда
         slides[currentSlide].classList.remove('active');
-        
-        // Вычисляем индекс следующего слайда
-        currentSlide += direction;
-
-        if (currentSlide >= slides.length) {
-            currentSlide = 0;
-        } else if (currentSlide < 0) {
-            currentSlide = slides.length - 1;
-        }
-
-        // Добавляем активный класс новому слайду
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
         slides[currentSlide].classList.add('active');
     }
 
-    // Автопереключение каждые 5 секунд (по желанию)
     setInterval(() => changeSlide(1), 5000);
+
+    // --- Логика плавного появления при скролле ---
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 100;
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+
+    window.addEventListener("scroll", reveal);
+    reveal(); // Чтобы проверить блоки при первой загрузке
 </script>
 
 </body>
