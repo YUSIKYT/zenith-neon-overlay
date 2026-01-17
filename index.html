@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenith Neon UI - Ultra Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #a970ff;
             --secondary: #ff79c6;
             --accent: #00f2ff;
             --bg: #0a0514;
+            --twitch: #9146ff;
         }
 
         html { scroll-behavior: smooth; }
@@ -21,11 +23,10 @@
             color: white;
             font-family: 'Exo 2', sans-serif;
             overflow-x: hidden;
-            /* Прячем курсор только на ПК, чтобы не мешал на телефонах */
             @media (pointer: fine) { cursor: none; }
         }
 
-        /* --- КАСТОМНЫЙ КУРСОР --- */
+        /* --- КУРСОР --- */
         #cursor {
             width: 10px; height: 10px;
             background: var(--accent);
@@ -33,11 +34,11 @@
             position: fixed;
             pointer-events: none;
             z-index: 10000;
-            box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent);
-            display: none; /* Появится при движении мыши */
+            box-shadow: 0 0 15px var(--accent);
+            display: none;
         }
 
-        /* --- ФОН И ДЕКОР --- */
+        /* --- ФОН --- */
         #star-canvas {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -45,17 +46,8 @@
             background: radial-gradient(circle at center, #1a0b2e 0%, #0a0514 100%);
         }
 
-        .bg-line {
-            position: fixed; width: 1px; height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
-            opacity: 0.2; z-index: 0;
-        }
-        .line-left { left: 5%; }
-        .line-right { right: 5%; }
-
         .container { position: relative; max-width: 1000px; margin: 0 auto; padding: 40px 20px; z-index: 2; }
 
-        /* --- АНИМАЦИИ --- */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -65,7 +57,7 @@
 
         header { text-align: center; padding: 60px 0; }
         h1 { 
-            font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 8vw, 3.5rem); 
+            font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem, 8vw, 4rem); 
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             margin: 0; text-transform: uppercase;
@@ -107,10 +99,71 @@
             padding: 20px 50px; background: var(--primary);
             color: white; text-decoration: none; font-family: 'Orbitron';
             border-radius: 50px; font-weight: 900; box-shadow: 0 0 25px var(--primary);
-            display: inline-block; transition: 0.4s; cursor: pointer;
+            display: inline-block; transition: 0.4s; cursor: pointer; border: none;
         }
         .btn-dl:hover { transform: scale(1.05); background: var(--secondary); box-shadow: 0 0 40px var(--secondary); }
 
+        /* --- СЕКЦИЯ TWITCH (НОВОЕ) --- */
+        .twitch-section {
+            margin-top: 100px;
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(145, 70, 255, 0.1));
+            border-radius: 40px;
+            border: 1px solid rgba(145, 70, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .twitch-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .twitch-icon-big {
+            font-size: 4rem;
+            color: var(--twitch);
+            filter: drop-shadow(0 0 20px var(--twitch));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .twitch-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: white;
+            margin: 10px 0;
+        }
+
+        .btn-twitch {
+            padding: 15px 40px;
+            background: var(--twitch);
+            color: white;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 10px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
+        }
+
+        .btn-twitch:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(145, 70, 255, 0.8);
+            filter: brightness(1.2);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- ИНСТРУКЦИЯ --- */
         .step {
             background: rgba(255, 255, 255, 0.02); padding: 25px; border-radius: 15px;
             margin-bottom: 20px; border-left: 4px solid var(--primary);
@@ -122,8 +175,6 @@
 
 <div id="cursor"></div>
 <canvas id="star-canvas"></canvas>
-<div class="bg-line line-left"></div>
-<div class="bg-line line-right"></div>
 
 <div class="container">
     <header class="reveal">
@@ -140,12 +191,23 @@
     </div>
 
     <div class="download-box reveal">
-        <h2>Скачать набор</h2>
-        <p>Нажми кнопку, чтобы загрузить архив</p><br>
-        <a href="Zenith Neon UI.zip" class="btn-dl" id="downloadBtn" download>DOWNLOAD ZIP</a>
+        <h2>Скачать весь набор</h2>
+        <p>Архив со всеми файлами и звуками</p><br>
+        <a href="Zenith Neon UI.zip" class="btn-dl sound-trigger" download>DOWNLOAD ZIP</a>
     </div>
 
-    <div class="tutorial reveal">
+    <div class="twitch-section reveal">
+        <div class="twitch-card">
+            <i class="fa-brands fa-twitch twitch-icon-big"></i>
+            <div class="twitch-name">ZENITOPY</div>
+            <p>Подписывайся на трансляции, чтобы видеть оверлеи в действии!</p>
+            <a href="https://www.twitch.tv/zenitopy" target="_blank" class="btn-twitch sound-trigger">
+                <i class="fa-brands fa-twitch"></i> ПЕРЕЙТИ НА КАНАЛ
+            </a>
+        </div>
+    </div>
+
+    <div class="tutorial reveal" style="margin-top: 80px;">
         <h2 style="font-family: Orbitron; text-align: center; margin-bottom: 30px;">ТУТОРИАЛ</h2>
         <div class="step">
             <h3>Как сменить текст?</h3>
@@ -159,13 +221,13 @@
 </audio>
 
 <script>
-    // --- ПРАВИЛЬНАЯ ЛОГИКА ЗВУКА ДЛЯ GITHUB ---
-    const btn = document.getElementById('downloadBtn');
+    // --- ЗВУК ПРИ КЛИКЕ ---
     const sound = document.getElementById('successSound');
-
-    btn.addEventListener('click', function() {
-        sound.currentTime = 0; // Сброс в начало
-        sound.play().catch(e => console.log("Браузер заблокировал звук. Требуется клик."));
+    document.querySelectorAll('.sound-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Sound block"));
+        });
     });
 
     // --- КУРСОР ---
@@ -176,37 +238,33 @@
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        });
     }
 
-    // --- ЗВЕЗДНЫЙ ФОН ---
+    // --- ЗВЕЗДЫ ---
     const canvas = document.getElementById('star-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
-
     function initStars() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         stars = Array.from({length: 150}, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            z: Math.random() * canvas.width,
-            o: Math.random()
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            z: Math.random() * canvas.width, o: Math.random()
         }));
     }
-
     function draw() {
-        ctx.fillStyle = "#0a0514";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0a0514"; ctx.fillRect(0, 0, canvas.width, canvas.height);
         stars.forEach(s => {
             let sx = (s.x - canvas.width/2) * (canvas.width/s.z) + canvas.width/2;
             let sy = (s.y - canvas.height/2) * (canvas.width/s.z) + canvas.height/2;
             let size = (canvas.width/s.z) * 1.5;
             ctx.fillStyle = `rgba(255, 255, 255, ${s.o})`;
-            ctx.beginPath();
-            ctx.arc(sx, sy, size > 0 ? size : 0, 0, Math.PI*2);
-            ctx.fill();
-            s.z -= 1;
-            if(s.z <= 0) s.z = canvas.width;
+            ctx.beginPath(); ctx.arc(sx, sy, size > 0 ? size : 0, 0, Math.PI*2); ctx.fill();
+            s.z -= 1; if(s.z <= 0) s.z = canvas.width;
         });
         requestAnimationFrame(draw);
     }
@@ -221,7 +279,7 @@
         slides[idx].classList.add('active');
     }
 
-    // --- ПОЯВЛЕНИЕ БЛОКОВ ---
+    // --- REVEAL ---
     function reveal() {
         document.querySelectorAll('.reveal').forEach(el => {
             if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
