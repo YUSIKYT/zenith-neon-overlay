@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenith Neon UI - Download Overlay</title>
+    <title>Zenith Neon UI - Download</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,286 +13,150 @@
             --bg: #0a0514;
         }
 
-        /* Плавная прокрутка всей страницы */
-        html {
-            scroll-behavior: smooth;
-        }
+        /* Плавный скролл */
+        html { scroll-behavior: smooth; }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg);
             color: white;
             font-family: 'Exo 2', sans-serif;
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
 
-        /* Анимация появления блоков при скролле */
+        /* Анимация появления при скролле */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
         }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        header { 
-            text-align: center; 
-            padding: 60px 0; 
-        }
-
+        header { text-align: center; padding: 80px 0; }
         h1 { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 3.5rem; 
-            text-transform: uppercase; 
-            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            margin: 0;
-            text-shadow: 0 0 20px rgba(169, 112, 255, 0.3);
+            font-family: 'Orbitron', sans-serif; font-size: 3.5rem; 
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin: 0; text-transform: uppercase;
         }
 
-        /* --- СЛАЙДЕР --- */
+        /* Ультра Слайдер */
         .slider-container {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            margin: 40px 0;
-            border-radius: 20px;
-            overflow: hidden;
+            position: relative; width: 100%; height: 550px;
+            margin: 40px 0; border-radius: 25px; overflow: hidden;
             border: 2px solid var(--primary);
-            box-shadow: 0 0 30px rgba(169, 112, 255, 0.3);
+            box-shadow: 0 0 50px rgba(169, 112, 255, 0.2);
         }
-
         .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transform: scale(1.1);
-            transition: opacity 1s ease, transform 1s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
+            position: absolute; width: 100%; height: 100%;
+            opacity: 0; transform: scale(1.1) rotate(1deg);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-            z-index: 1;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .slide.active { opacity: 1; transform: scale(1) rotate(0deg); z-index: 1; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
 
         .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(169, 112, 255, 0.2);
-            color: white;
-            border: 1px solid var(--primary);
-            padding: 20px 15px;
-            cursor: pointer;
-            z-index: 10;
-            font-family: 'Orbitron', sans-serif;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(169, 112, 255, 0.3); color: white; border: none;
+            padding: 25px 15px; cursor: pointer; z-index: 10;
+            backdrop-filter: blur(10px); transition: 0.3s;
         }
+        .slider-btn:hover { background: var(--primary); box-shadow: 0 0 20px var(--primary); }
+        .btn-prev { left: 0; border-radius: 0 15px 15px 0; }
+        .btn-next { right: 0; border-radius: 15px 0 0 15px; }
 
-        .slider-btn:hover {
-            background: var(--primary);
-            box-shadow: 0 0 20px var(--primary);
+        /* Секция загрузки */
+        .download-box {
+            text-align: center; padding: 60px;
+            background: rgba(255,255,255,0.03); border-radius: 30px;
+            border: 1px solid rgba(169, 112, 255, 0.2); margin: 60px 0;
         }
-
-        .btn-prev { left: 0; border-radius: 0 10px 10px 0; }
-        .btn-next { right: 0; border-radius: 10px 0 0 10px; }
-
-        .slide-caption {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(10, 5, 20, 0.8);
-            padding: 10px 25px;
-            border-radius: 30px;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            font-size: 0.9rem;
-            z-index: 5;
+        .btn-dl {
+            padding: 20px 60px; background: var(--primary);
+            color: white; text-decoration: none; font-family: 'Orbitron';
+            border-radius: 50px; font-weight: 900; box-shadow: 0 0 30px var(--primary);
+            display: inline-block; transition: 0.4s;
         }
+        .btn-dl:hover { transform: translateY(-5px); background: var(--secondary); box-shadow: 0 0 50px var(--secondary); }
 
-        /* --- ТУТОР --- */
-        .tutorial-section {
-            margin: 60px 0;
+        /* Туториал */
+        .step {
+            background: #160d2b; padding: 30px; border-radius: 20px;
+            margin-bottom: 25px; border-left: 5px solid var(--accent);
         }
-
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            text-align: center;
-            margin-bottom: 40px;
+        .code {
+            background: #000; padding: 15px; border-radius: 10px;
+            font-family: monospace; color: #00f2ff; overflow-x: auto; margin-top: 15px;
         }
-
-        .step-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(169, 112, 255, 0.2);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-        }
-
-        .code-block {
-            background: #000;
-            padding: 15px;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            color: #d1d1d1;
-            overflow-x: auto;
-            border-left: 4px solid var(--secondary);
-            margin: 15px 0;
-        }
-
-        .highlight { color: var(--secondary); font-weight: bold; }
-
-        /* --- ЗАГРУЗКА --- */
-        .download-section {
-            text-align: center;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(169, 112, 255, 0.05) 100%);
-            padding: 60px;
-            border-radius: 30px;
-            border: 1px solid rgba(169, 112, 255, 0.3);
-            margin: 40px 0;
-        }
-
-        .btn-download {
-            display: inline-block;
-            padding: 22px 60px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            box-shadow: 0 0 30px var(--primary);
-            transition: 0.4s;
-        }
-
-        .btn-download:hover {
-            transform: scale(1.05);
-            background: var(--secondary);
-            box-shadow: 0 0 50px var(--secondary);
-        }
+        .hl { color: var(--secondary); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header class="reveal">
-        <h1>Zenith Neon UI</h1>
-        <p>Анимированные оверлеи с эффектом погружения</p>
+        <h1>Zenith Neon</h1>
+        <p>Premium OBS Overlays for Streamers</p>
     </header>
 
     <div class="slider-container reveal">
-        <button class="slider-btn btn-prev" onclick="changeSlide(-1)">❮</button>
-        <button class="slider-btn btn-next" onclick="changeSlide(1)">❯</button>
-
-        <div class="slide active">
-            <img src="2026-01-17_23-55-59.png" alt="В игре">
-            <div class="slide-caption">Вид в игре (GTA VI / FiveM)</div>
-        </div>
-
-        <div class="slide">
-            <img src="2026-01-17_23-52-05.png" alt="Варианты">
-            <div class="slide-caption">Варианты оформления ников</div>
-        </div>
-
-        <div class="slide">
-            <img src="2026-01-17_22-26-47.png" alt="Частицы">
-            <div class="slide-caption">Эффекты частиц и неона</div>
-        </div>
+        <button class="slider-btn btn-prev" onclick="move(-1)">❮</button>
+        <button class="slider-btn btn-next" onclick="move(1)">❯</button>
+        <div class="slide active"><img src="2026-01-17_23-55-59.png"></div>
+        <div class="slide"><img src="2026-01-17_23-52-05.png"></div>
+        <div class="slide"><img src="2026-01-17_22-26-47.png"></div>
     </div>
 
-    <div class="download-section reveal">
-        <h2>Готов к стриму?</h2>
-        <a href="Zenith Neon UI.zip" class="btn-download" download>СКАЧАТЬ ZIP ПАКЕТ</a>
+    <div class="download-box reveal">
+        <h2>Скачать Zenith Neon UI Пакет</h2>
+        <p>Все оверлеи в одном ZIP архиве</p><br>
+        <a href="Zenith Neon UI.zip" class="btn-dl">DOWNLOAD ZIP</a>
     </div>
 
-    <div class="tutorial-section">
-        <h2 class="reveal">Как поменять ники?</h2>
+    <div class="tutorial reveal">
+        <h2 style="font-family: Orbitron; text-align: center;">ИНСТРУКЦИЯ ПО НАСТРОЙКЕ</h2>
         
-        <div class="step-card reveal">
-            <h3>1. Оверлей ника 1</h3>
-            <p>Откройте HTML файл оверлея и найдите блок <span class="highlight">overlay-container</span>. Измените текст в этих строчках:</p>
-            <div class="code-block">
-&lt;div class="overlay-container"&gt;<br>
-&nbsp;&nbsp;&lt;div class="name-bar"&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="anime-accent"&gt;<span class="highlight">ВашТекст</span>&lt;/div&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="channel-name"&gt;<span class="highlight">ВашНик</span>&lt;/div&gt;<br>
-&nbsp;&nbsp;&lt;/div&gt;<br>
-&lt;/div&gt;
+        <div class="step">
+            <h3>Изменение ника (Вариант 1)</h3>
+            <p>Найдите блок <span class="hl">name-bar</span> и замените текст:</p>
+            <div class="code">
+                &lt;div class="anime-accent"&gt;ЯпонскийТекст&lt;/div&gt;<br>
+                &lt;div class="channel-name"&gt;ТвойНик&lt;/div&gt;
             </div>
         </div>
 
-        <div class="step-card reveal">
-            <h3>2. Оверлей ника 2</h3>
-            <p>Найдите метку <span class="highlight">&lt;!-- Текст --&gt;</span>. Замените ник в основном блоке и в блоке тени:</p>
-            <div class="code-block">
-&lt;div class="text-container"&gt;<br>
-&nbsp;&nbsp;&lt;div class="channel-name"&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">ВашНик</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="name-shadow"&gt;<span class="highlight">ВашНик</span>&lt;/div&gt;<br>
-&nbsp;&nbsp;&lt;/div&gt;<br>
-&nbsp;&nbsp;&lt;div class="sub-text"&gt;Live Streamer&lt;/div&gt;<br>
-&lt;/div&gt;
+        <div class="step">
+            <h3>Изменение ника (Вариант 2)</h3>
+            <p>Найдите <span class="hl">text-container</span> и обновите две строки:</p>
+            <div class="code">
+                &lt;div class="channel-name"&gt;ТвойНик<br>
+                &lt;div class="name-shadow"&gt;ТвойНик&lt;/div&gt;
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // --- Логика слайдера ---
-    let currentSlide = 0;
+    // Слайдер
+    let idx = 0;
     const slides = document.querySelectorAll('.slide');
-
-    function changeSlide(direction) {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + direction + slides.length) % slides.length;
-        slides[currentSlide].classList.add('active');
+    function move(n) {
+        slides[idx].classList.remove('active');
+        idx = (idx + n + slides.length) % slides.length;
+        slides[idx].classList.add('active');
     }
+    setInterval(() => move(1), 5000);
 
-    setInterval(() => changeSlide(1), 5000);
-
-    // --- Логика плавного появления при скролле ---
+    // Анимация при скролле
     function reveal() {
-        var reveals = document.querySelectorAll(".reveal");
-        for (var i = 0; i < reveals.length; i++) {
-            var windowHeight = window.innerHeight;
-            var elementTop = reveals[i].getBoundingClientRect().top;
-            var elementVisible = 100;
-            if (elementTop < windowHeight - elementVisible) {
-                reveals[i].classList.add("active");
-            }
-        }
+        document.querySelectorAll('.reveal').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+        });
     }
-
-    window.addEventListener("scroll", reveal);
-    reveal(); // Чтобы проверить блоки при первой загрузке
+    window.addEventListener('scroll', reveal);
+    reveal();
 </script>
 
 </body>
