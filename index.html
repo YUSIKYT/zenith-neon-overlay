@@ -23,14 +23,14 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
         header {
             text-align: center;
-            padding: 60px 0;
+            padding: 40px 0;
         }
 
         h1 {
@@ -44,45 +44,79 @@
             text-shadow: 0 0 20px rgba(169, 112, 255, 0.5);
         }
 
-        .preview-img {
+        /* Стили галереи */
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            border: 2px solid rgba(169, 112, 255, 0.3);
+            overflow: hidden;
+            transition: 0.3s;
+            background: #000;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.2);
+        }
+
+        .gallery-item img {
             width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .full-preview {
+            width: 100%;
+            margin: 20px 0 40px 0;
             border-radius: 15px;
             border: 2px solid var(--primary);
             box-shadow: 0 0 30px rgba(169, 112, 255, 0.2);
-            margin: 30px 0;
+        }
+
+        .caption {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            background: rgba(169, 112, 255, 0.1);
+            color: var(--accent);
         }
 
         .download-section {
             text-align: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(169, 112, 255, 0.05) 100%);
+            padding: 50px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(169, 112, 255, 0.3);
+            margin-bottom: 60px;
         }
 
         .btn-download {
             display: inline-block;
-            padding: 18px 45px;
+            padding: 20px 50px;
             background: var(--primary);
             color: white;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
             border-radius: 50px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: 0.3s;
-            box-shadow: 0 0 20px var(--primary);
+            box-shadow: 0 0 25px var(--primary);
+            margin-top: 20px;
         }
 
         .btn-download:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 40px var(--secondary);
+            box-shadow: 0 0 45px var(--secondary);
             background: var(--secondary);
-        }
-
-        .tutorial {
-            margin-top: 60px;
         }
 
         h2 {
@@ -107,15 +141,13 @@
 
         .step {
             margin-bottom: 40px;
-            padding: 20px;
+            padding: 25px;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        span.highlight {
-            color: var(--secondary);
-            font-weight: bold;
-        }
+        span.highlight { color: var(--secondary); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -123,56 +155,50 @@
 <div class="container">
     <header>
         <h1>Zenith Neon UI</h1>
-        <p>Профессиональный наблр оверлеев для ваших стримов</p>
+        <p>Коллекция анимированных оверлеев в стиле Киберпанк</p>
     </header>
 
-    <img src="2026-01-17_22-26-47.png" alt="Overlay Preview" class="preview-img">
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="2026-01-17_23-52-05.png" alt="Варианты дизайна">
+            <div class="caption">Варианты дизайна ников</div>
+        </div>
+        <div class="gallery-item">
+            <img src="2026-01-17_22-26-47.png" alt="Эффекты частиц">
+            <div class="caption">Эффекты снега и свечения</div>
+        </div>
+    </div>
+
+    <h2 style="font-size: 1.2rem; border: none; margin-bottom: 10px;">Пример отображения в игре:</h2>
+    <img src="2026-01-17_23-55-59.png" alt="Пример в OBS" class="full-preview">
 
     <div class="download-section">
         <h2>Готовы обновить стрим?</h2>
-        <p>Скачайте архив со всеми HTML/CSS исходниками</p>
-        <br>
-        <a href="Zenith Neon UI.zip" class="btn-download" download>СКАЧАТЬ ZIP АРХИВ</a>
+        <p>Все оверлеи полностью настроены и готовы к работе в OBS</p>
+        <a href="Zenith Neon UI.zip" class="btn-download" download>СКАЧАТЬ ВЕСЬ ПАКЕТ</a>
     </div>
 
     <div class="tutorial">
-        <h2>Инструкция: Как изменить ник</h2>
+        <h2>Инструкция: Как изменить ники</h2>
         
         <div class="step">
-            <h3>1. Изменение в "Оверлей ника 1"</h3>
-            <p>Откройте файл в любом текстовом редакторе (Блокнот, VS Code) и найдите в нижней части кода этот блок. Замените <span class="highlight">зенитопи</span> и <span class="highlight">zenitopy</span> на свои данные:</p>
+            <h3>1. Оверлей ника 1</h3>
+            <p>В файле найдите блок <b>"overlay-container"</b>. Измените японский текст и английский ник:</p>
             <div class="code-block">
-&lt;div class="overlay-container"&gt;<br>
-&nbsp;&nbsp;&lt;div class="name-bar"&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="anime-accent"&gt;ВашТекст&lt;/div&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;i class="fa-brands fa-twitch twitch-icon"&gt;&lt;/i&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="channel-name"&gt;ВашНик&lt;/div&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="glow-line"&gt;&lt;/div&gt;<br>
-&nbsp;&nbsp;&lt;/div&gt;<br>
-&lt;/div&gt;
+                &lt;div class="anime-accent"&gt;ВашТекст&lt;/div&gt;<br>
+                &lt;div class="channel-name"&gt;ВашНик&lt;/div&gt;
             </div>
         </div>
 
         <div class="step">
-            <h3>2. Изменение в "Оверлей ника 2"</h3>
-            <p>Найдите блок <span class="highlight">&lt;!-- Текст --&gt;</span> внизу файла. Нужно поменять ник сразу в двух местах (основной текст и тень):</p>
+            <h3>2. Оверлей ника 2</h3>
+            <p>В блоке <b>"text-container"</b> поменяйте ник сразу в двух строчках (для эффекта тени):</p>
             <div class="code-block">
-&lt;div class="text-container"&gt;<br>
-&nbsp;&nbsp;&lt;div class="channel-name"&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ВашНик<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="name-shadow"&gt;ВашНик&lt;/div&gt;<br>
-&nbsp;&nbsp;&lt;/div&gt;<br>
-&nbsp;&nbsp;&lt;div class="sub-text"&gt;Live Streamer&lt;/div&gt;<br>
-&lt;/div&gt;
+                &lt;div class="channel-name"&gt;<br>
+                &nbsp;&nbsp;ВашНик<br>
+                &nbsp;&nbsp;&lt;div class="name-shadow"&gt;ВашНик&lt;/div&gt;<br>
+                &lt;/div&gt;
             </div>
-        </div>
-
-        <div class="step">
-            <h3>3. Как добавить в OBS</h3>
-            <p>1. В OBS добавьте новый источник <b>"Браузер" (Browser Source)</b>.<br>
-            2. Поставьте галочку <b>"Локальный файл" (Local file)</b>.<br>
-            3. Выберите нужный .html файл из скачанного архива.<br>
-            4. Установите размер 1920x1080 (или под ваше разрешение).</p>
         </div>
     </div>
 </div>
