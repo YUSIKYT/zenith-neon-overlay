@@ -16,71 +16,17 @@
         }
 
         html { scroll-behavior: smooth; }
+        body { margin: 0; padding: 0; background-color: var(--bg); color: white; font-family: 'Exo 2', sans-serif; overflow-x: hidden; @media (pointer: fine) { cursor: none; } }
 
-        body {
-            margin: 0; padding: 0;
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Exo 2', sans-serif;
-            overflow-x: hidden;
-            @media (pointer: fine) { cursor: none; }
-        }
+        /* --- ПЛЕЕР --- */
+        .music-player { position: fixed; bottom: 30px; left: 30px; background: rgba(169, 112, 255, 0.1); backdrop-filter: blur(15px); padding: 15px 25px; border-radius: 50px; border: 1px solid rgba(169, 112, 255, 0.3); display: flex; align-items: center; gap: 15px; z-index: 9999; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .play-btn { background: var(--primary); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .volume-slider { -webkit-appearance: none; width: 80px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; outline: none; }
+        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px var(--accent); }
 
-        /* --- ПЛЕЕР (НОВОЕ) --- */
-        .music-player {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(169, 112, 255, 0.1);
-            backdrop-filter: blur(15px);
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: 1px solid rgba(169, 112, 255, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            z-index: 9999;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .play-btn {
-            background: var(--primary);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-
-        .play-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--primary); }
-
-        .volume-slider {
-            -webkit-appearance: none;
-            width: 80px;
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 2px;
-            outline: none;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 12px;
-            height: 12px;
-            background: var(--accent);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        /* --- ОСТАЛЬНЫЕ СТИЛИ (БАЗА) --- */
+        /* --- БАЗОВЫЕ СТИЛИ --- */
         #cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; box-shadow: 0 0 15px var(--accent); display: none; }
-        #star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, #1a0b2e 0%, #0a0514 100%); }
+        #star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .container { position: relative; max-width: 1000px; margin: 0 auto; padding: 40px 20px; z-index: 2; }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -92,13 +38,16 @@
         .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transform: scale(1.05); transition: all 0.8s ease; }
         .slide.active { opacity: 1; transform: scale(1); z-index: 1; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
-
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(169, 112, 255, 0.2); color: white; border: none; padding: 20px; cursor: pointer; z-index: 10; backdrop-filter: blur(10px); }
-        .btn-dl { padding: 20px 50px; background: var(--primary); color: white; text-decoration: none; font-family: 'Orbitron'; border-radius: 50px; font-weight: 900; box-shadow: 0 0 25px var(--primary); display: inline-block; transition: 0.4s; cursor: pointer; border: none; }
-        .btn-dl:hover { transform: scale(1.05); background: var(--secondary); box-shadow: 0 0 40px var(--secondary); }
 
-        .twitch-section { margin-top: 100px; padding: 60px 20px; text-align: center; background: linear-gradient(180deg, transparent, rgba(145, 70, 255, 0.1)); border-radius: 40px; border: 1px solid rgba(145, 70, 255, 0.2); }
-        .btn-twitch { padding: 15px 40px; background: var(--twitch); color: white; text-decoration: none; font-family: 'Orbitron'; border-radius: 10px; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
+        /* --- ТУТОРИАЛЫ --- */
+        .step { background: rgba(255, 255, 255, 0.03); padding: 25px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid var(--primary); backdrop-filter: blur(10px); transition: 0.3s; }
+        .step:hover { transform: translateX(10px); background: rgba(169, 112, 255, 0.08); }
+        .code { background: #000; padding: 15px; border-radius: 10px; color: var(--accent); font-family: monospace; font-size: 0.9rem; margin-top: 10px; overflow-x: auto; }
+        .hl { color: var(--secondary); font-weight: bold; }
+
+        .btn-dl { padding: 20px 50px; background: var(--primary); color: white; text-decoration: none; font-family: 'Orbitron'; border-radius: 50px; font-weight: 900; box-shadow: 0 0 25px var(--primary); display: inline-block; transition: 0.4s; border: none; cursor: pointer; }
+        .btn-twitch { padding: 15px 40px; background: var(--twitch); color: white; text-decoration: none; font-family: 'Orbitron'; border-radius: 10px; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 0 20px rgba(145, 70, 255, 0.3); }
     </style>
 </head>
 <body>
@@ -107,11 +56,9 @@
 <canvas id="star-canvas"></canvas>
 
 <div class="music-player">
-    <button class="play-btn" id="musicToggle">
-        <i class="fa-solid fa-play" id="playIcon"></i>
-    </button>
-    <div style="font-size: 12px; font-family: Orbitron; color: var(--accent);">PHONK</div>
-    <input type="range" class="volume-slider" id="volumeControl" min="0" max="1" step="0.1" value="0.5">
+    <button class="play-btn" id="musicToggle"><i class="fa-solid fa-play" id="playIcon"></i></button>
+    <div style="font-size: 10px; font-family: Orbitron; color: var(--accent);">PHONK</div>
+    <input type="range" class="volume-slider" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
 </div>
 
 <div class="container">
@@ -128,34 +75,54 @@
         <div class="slide"><img src="2026-01-17_22-26-47.png"></div>
     </div>
 
-    <div class="download-box reveal" style="text-align:center; background:rgba(255,255,255,0.02); padding:50px; border-radius:30px; margin: 40px 0;">
-        <h2>Скачать набор</h2>
+    <div class="tutorial-section reveal">
+        <h2 style="font-family: Orbitron; text-align: center; margin-bottom: 40px;">ИНСТРУКЦИИ ПО НАСТРОЙКЕ</h2>
+        
+        <div class="step">
+            <h3>Изменение ника (Вариант 1)</h3>
+            <p>Найдите блок <span class="hl">name-bar</span> в HTML файле и замените текст на свой:</p>
+            <div class="code">
+                &lt;div class="anime-accent"&gt;ЯпонскийТекст&lt;/div&gt;<br>
+                &lt;div class="channel-name"&gt;ТВОЙ_НИК&lt;/div&gt;
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Изменение ника (Вариант 2)</h3>
+            <p>В файле <span class="hl">Оверлей ника 2.html</span> найдите <span class="hl">text-container</span>:</p>
+            <div class="code">
+                &lt;div class="channel-name"&gt;ТВОЙ_НИК&lt;br&gt;<br>
+                &lt;div class="name-shadow"&gt;ТВОЙ_НИК&lt;/div&gt;
+            </div>
+        </div>
+    </div>
+
+    <div class="download-box reveal" style="text-align:center; padding:60px 0;">
         <a href="Zenith Neon UI.zip" class="btn-dl sound-trigger" download>DOWNLOAD ZIP</a>
     </div>
 
-    <div class="twitch-section reveal">
-        <div class="twitch-card">
-            <i class="fa-brands fa-twitch" style="font-size:3rem; color:var(--twitch); margin-bottom:15px;"></i>
-            <div class="twitch-name" style="font-family:Orbitron; font-size:1.5rem;">ZENITOPY</div>
-            <br>
-            <a href="https://www.twitch.tv/zenitopy" target="_blank" class="btn-twitch sound-trigger">
-                ПЕРЕЙТИ НА КАНАЛ
-            </a>
-        </div>
+    <div class="twitch-section reveal" style="text-align:center; padding:60px; border-radius:30px; background:rgba(145,70,255,0.05); border:1px solid rgba(145,70,255,0.2);">
+        <i class="fa-brands fa-twitch" style="font-size:3rem; color:var(--twitch); margin-bottom:15px;"></i>
+        <div style="font-family:Orbitron; font-size:1.5rem; margin-bottom:20px;">ZENITOPY</div>
+        <a href="https://www.twitch.tv/zenitopy" target="_blank" class="btn-twitch sound-trigger">ПЕРЕЙТИ НА КАНАЛ</a>
     </div>
 </div>
 
-<audio id="bgMusic" loop>
-    <source src="bxxmwave_SefanStepaz_-_Luchshij_fonk_(SkySound.cc).mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" loop><source src="bxxmwave_SefanStepaz_-_Luchshij_fonk_(SkySound.cc).mp3" type="audio/mpeg"></audio>
 <audio id="clickSound"><source src="apple-pay.mp3" type="audio/mpeg"></audio>
 
 <script>
-    // --- ЛОГИКА ПЛЕЕРА ---
     const music = document.getElementById('bgMusic');
     const musicToggle = document.getElementById('musicToggle');
     const playIcon = document.getElementById('playIcon');
     const volumeControl = document.getElementById('volumeControl');
+    const clickSound = document.getElementById('clickSound');
+
+    // Настройка громкости
+    music.volume = 0.5;
+    volumeControl.addEventListener('input', (e) => {
+        music.volume = e.target.value;
+    });
 
     musicToggle.addEventListener('click', () => {
         if (music.paused) {
@@ -167,12 +134,6 @@
         }
     });
 
-    volumeControl.addEventListener('input', (e) => {
-        music.volume = e.target.value;
-    });
-
-    // --- ЗВУК КЛИКА ---
-    const clickSound = document.getElementById('clickSound');
     document.querySelectorAll('.sound-trigger').forEach(btn => {
         btn.addEventListener('click', () => {
             clickSound.currentTime = 0;
@@ -180,7 +141,7 @@
         });
     });
 
-    // --- ЗВЕЗДЫ ---
+    // Звезды
     const canvas = document.getElementById('star-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -202,7 +163,7 @@
     }
     initStars(); draw();
 
-    // --- КУРСОР ---
+    // Курсор
     const cursor = document.getElementById('cursor');
     if (window.matchMedia("(pointer: fine)").matches) {
         document.addEventListener('mousemove', (e) => { cursor.style.display = 'block'; cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
@@ -212,14 +173,16 @@
         });
     }
 
-    // --- СЛАЙДЕР ---
+    // Слайдер
     let idx = 0;
     const slides = document.querySelectorAll('.slide');
     function move(n) { slides[idx].classList.remove('active'); idx = (idx + n + slides.length) % slides.length; slides[idx].classList.add('active'); }
 
-    // --- REVEAL ---
+    // Reveal
     function reveal() { document.querySelectorAll('.reveal').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active'); }); }
-    window.addEventListener('scroll', reveal); reveal();
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('resize', initStars);
+    reveal();
 </script>
 
 </body>
